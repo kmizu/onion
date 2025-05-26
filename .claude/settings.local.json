@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(java:*)",
+      "Bash(sbt clean:*)",
+      "Bash(rm:*)",
+      "Bash(sbt:*)",
+      "Bash(grep:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  }
+}

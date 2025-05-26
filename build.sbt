@@ -78,9 +78,8 @@ lazy val onionSettings = Seq(
     (Seq((Compile / javaSource).value) ++ Seq((Compile / scalaSource).value) ++ Seq((Compile / sourceManaged).value))
   },
   scalacOptions ++= Seq("-encoding", "utf8", "-unchecked", "-deprecation", "-feature", "-language:implicitConversions", "-language:existentials"),
-  javacOptions ++= Seq("-sourcepath", "src.lib", "-Xlint:unchecked", "-source", "21"),
+  javacOptions ++= Seq("-sourcepath", "src.lib", "-Xlint:unchecked", "-source", "17"),
   libraryDependencies ++= Seq(
-    "org.apache.bcel" % "bcel" % "6.0",
     "org.ow2.asm" % "asm" % "9.8",
     "org.ow2.asm" % "asm-tree" % "9.8",
     "org.ow2.asm" % "asm-commons" % "9.8",

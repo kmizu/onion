@@ -1,9 +1,8 @@
 package onion.compiler.environment
 
 import onion.compiler.{IRT, Modifier, OnionTypeConversion, MultiTable, OrderedTable, ClassTable}
-import org.objectweb.asm.{ClassReader, Opcodes}
+import org.objectweb.asm.{ClassReader, Opcodes, Type}
 import org.objectweb.asm.tree.{ClassNode, MethodNode, FieldNode}
-import org.apache.bcel.generic.{Type => BType}
 
 object AsmRefs {
   private def toOnionModifier(access: Int): Int = {
@@ -23,23 +22,41 @@ object AsmRefs {
   class AsmMethodRef(method: MethodNode, override val affiliation: IRT.ClassType, bridge: OnionTypeConversion) extends IRT.Method {
     override val modifier: Int = toOnionModifier(method.access)
     override val name: String = method.name
-    private val argTypes = org.objectweb.asm.Type.getArgumentTypes(method.desc).map(t => bridge.toOnionType(BType.getType(t.getDescriptor)))
+    private val argTypes = {
+      val asmTypes = Type.getArgumentTypes(method.desc)
+      val result = new Array[IRT.Type](asmTypes.length)
+      var i = 0
+      while (i < asmTypes.length) {
+        result(i) = bridge.toOnionType(asmTypes(i))
+        i += 1
+      }
+      result
+    }
     override def arguments: Array[IRT.Type] = argTypes.clone()
-    override val returnType: IRT.Type = bridge.toOnionType(BType.getType(org.objectweb.asm.Type.getReturnType(method.desc).getDescriptor))
+    override val returnType: IRT.Type = bridge.toOnionType(Type.getReturnType(method.desc))
     val underlying: MethodNode = method
   }
 
   class AsmFieldRef(field: FieldNode, override val affiliation: IRT.ClassType, bridge: OnionTypeConversion) extends IRT.FieldRef {
     override val modifier: Int = toOnionModifier(field.access)
     override val name: String = field.name
-    override val `type`: IRT.Type = bridge.toOnionType(BType.getType(field.desc))
+    override val `type`: IRT.Type = bridge.toOnionType(Type.getType(field.desc))
     val underlying: FieldNode = field
   }
 
   class AsmConstructorRef(method: MethodNode, override val affiliation: IRT.ClassType, bridge: OnionTypeConversion) extends IRT.ConstructorRef {
     override val modifier: Int = toOnionModifier(method.access)
     override val name: String = CONSTRUCTOR_NAME
-    private val args0 = org.objectweb.asm.Type.getArgumentTypes(method.desc).map(t => bridge.toOnionType(BType.getType(t.getDescriptor)))
+    private val args0 = {
+      val asmTypes = Type.getArgumentTypes(method.desc)
+      val result = new Array[IRT.Type](asmTypes.length)
+      var i = 0
+      while (i < asmTypes.length) {
+        result(i) = bridge.toOnionType(asmTypes(i))
+        i += 1
+      }
+      result
+    }
     override def getArgs: Array[IRT.Type] = args0.clone()
     val underlying: MethodNode = method
   }
