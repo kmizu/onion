@@ -2313,20 +2313,20 @@
 </span></code></pre></div>
 <h2 id="lambda-expressions">Lambda Expressions<a class="headerlink" href="#lambda-expressions" title="Permanent link">&para;</a></h2>
 <h3 id="lambda-syntax">Lambda Syntax<a class="headerlink" href="#lambda-syntax" title="Permanent link">&para;</a></h3>
-<p>Anonymous functions use the <code>(params) -&gt; { body }</code> syntax:</p>
+<p>Anonymous functions use the <code>(params) -&gt; { body }</code> syntax. Function values can be invoked with <code>f(args)</code>, which is shorthand for <code>f.call(args)</code>:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>val double: (Int) -&gt; Int = (x: Int) -&gt; { return x * 2; }
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>val result: Int = double.call(5)  // 10
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>val result: Int = double(5)  // 10
 </span></code></pre></div>
 <h3 id="lambda-with-multiple-parameters">Lambda with Multiple Parameters<a class="headerlink" href="#lambda-with-multiple-parameters" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>val add: (Int, Int) -&gt; Int = (x: Int, y: Int) -&gt; { return x + y; }
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>val sum: Int = add.call(3, 7)  // 10
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>val sum: Int = add(3, 7)  // 10
 </span></code></pre></div>
 <h3 id="lambda-with-no-parameters">Lambda with No Parameters<a class="headerlink" href="#lambda-with-no-parameters" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>val sayHello: () -&gt; String = () -&gt; { IO::println(&quot;Hello!&quot;); return &quot;done&quot;; }
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>sayHello.call()
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>sayHello()
 </span></code></pre></div>
 <h2 id="closures">Closures<a class="headerlink" href="#closures" title="Permanent link">&para;</a></h2>
 <p>Lambdas can capture variables from their enclosing scope:</p>
@@ -2339,9 +2339,9 @@
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>}
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>val counter: () -&gt; Int = makeCounter()
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>IO::println(counter.call())  // 1
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>IO::println(counter.call())  // 2
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>IO::println(counter.call())  // 3
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>IO::println(counter())  // 1
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>IO::println(counter())  // 2
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>IO::println(counter())  // 3
 </span></code></pre></div>
 <h3 id="capturing-loop-variables">Capturing Loop Variables<a class="headerlink" href="#capturing-loop-variables" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>var i: Int = 0
