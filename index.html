@@ -516,6 +516,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tools" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1676,6 +1687,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tools" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1747,9 +1769,11 @@
 <li><strong>Statically Typed</strong> - Catch errors at compile time with local type inference</li>
 <li><strong>Object-Oriented</strong> - Classes, inheritance, interfaces, and method overloading</li>
 <li><strong>Functional Elements</strong> - Lambda expressions, closures, and first-class functions</li>
+<li><strong>Monadic Composition</strong> - Do notation for Option, Result, and Future types</li>
+<li><strong>Asynchronous Programming</strong> - Built-in Future type with functional combinators</li>
 <li><strong>Java Interoperability</strong> - Direct access to Java libraries and frameworks</li>
 <li><strong>JVM Target</strong> - Compiles to efficient JVM bytecode</li>
-<li><strong>Concise Syntax</strong> - Clean, readable code with minimal boilerplate</li>
+<li><strong>Concise Syntax</strong> - Clean, readable code with trailing lambda support</li>
 </ul>
 <h2 id="quick-example">Quick Example<a class="headerlink" href="#quick-example" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>// Hello World
@@ -1785,6 +1809,18 @@
 </span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>  else:
 </span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    IO::println(&quot;High&quot;)
 </span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>}
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>// Do notation for monadic composition
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>val result: Option[Int] = do[Option] {
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>  x &lt;- parseNumber(&quot;42&quot;)
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>  y &lt;- parseNumber(&quot;10&quot;)
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>  ret x + y
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>}
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>// Async programming with Future
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>val future: Future[String] = Future::async(() -&gt; { return fetchData(); })
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>future.map { data =&gt; processData(data) }
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>      .onSuccess { result =&gt; IO::println(result) }
 </span></code></pre></div>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1796,10 +1832,16 @@
 <ul>
 <li><a href="guide/overview/">Overview</a> - Language philosophy and design</li>
 <li><a href="guide/basic-syntax/">Basic Syntax</a> - Variables, operators, and expressions</li>
-<li><a href="guide/control-flow/">Control Flow</a> - if, while, for, foreach, and select</li>
+<li><a href="guide/control-flow/">Control Flow</a> - if, while, for, foreach, select, and do notation</li>
 <li><a href="guide/functions/">Functions</a> - Function definitions and lambda expressions</li>
+<li><a href="guide/lambda-expressions/">Lambda Expressions</a> - Closures and trailing lambda syntax</li>
 <li><a href="guide/classes-and-objects/">Classes and Objects</a> - Object-oriented programming</li>
 <li><a href="guide/java-interop/">Java Interoperability</a> - Using Java libraries</li>
+</ul>
+<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="reference/stdlib/">Standard Library</a> - IO, Option, Result, Future, and more</li>
+<li><a href="reference/compiler-architecture/">Compiler Architecture</a> - How the compiler works</li>
 </ul>
 <h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
 <ul>
